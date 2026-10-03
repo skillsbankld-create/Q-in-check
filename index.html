@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>تحليل رضا المتدربين Q3 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+/* Layout: single RTL column; summary tiles → findings → per-channel item bars (tabs) → comment themes → trainings watchlist → data issues → actions */
+:root{
+  --bg:#F5F7FB; --surface:#FFFFFF; --ink:#080828; --muted:#5A5A72; --line:#DDE3EE;
+  --navy:#080828; --gold:#FFBC3A; --blue:#4D88E8; --teal:#2FA08E; --red:#D94F30;
+  --barbg:#EBF1FA; --chip:#EBF4FF;
+  --f-display:"Readex Pro","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B0B22; --surface:#15153A; --ink:#EEF2FA; --muted:#A9ADC6; --line:#2A2B55;
+  --navy:#EEF2FA; --gold:#FFC857; --blue:#6FA0F0; --teal:#4CC7B2; --red:#F27A5E;
+  --barbg:#20224A; --chip:#20224A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0B22; --surface:#15153A; --ink:#EEF2FA; --muted:#A9ADC6; --line:#2A2B55;
+  --navy:#EEF2FA; --gold:#FFC857; --blue:#6FA0F0; --teal:#4CC7B2; --red:#F27A5E;
+  --barbg:#20224A; --chip:#20224A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;direction:rtl}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:28px 56px;display:grid;gap:36px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:clamp(24px,4vw,34px);font-weight:700}
+h2{font-size:21px;font-weight:600;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:6px;height:22px;background:var(--gold);border-radius:2px}
+h3{font-size:16px;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums;font-family:var(--f-display)}
+header{display:grid;gap:8px;border-bottom:1px solid var(--line);padding-bottom:22px}
+.eyebrow{font-size:13px;color:var(--muted);letter-spacing:.02em}
+section{display:grid;gap:16px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:6px;min-width:0}
+.tile .big{font-size:36px;font-weight:700;line-height:1}
+.tile .big small{font-size:15px;color:var(--muted);font-weight:400}
+.tile .row{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;border-top:1px dashed var(--line);padding-top:6px}
+.tile.total{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tile.total .muted,.tile.total .big small{color:var(--bg);opacity:.75}
+.tile.total .row{border-color:rgba(127,127,160,.5)}
+.flag{font-size:12px;background:var(--chip);border-radius:20px;padding:1px 10px;color:var(--muted);justify-self:start}
+.findings{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.findings li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:9px}
+.good{background:var(--teal)} .warn{background:var(--gold)} .bad{background:var(--red)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{font:inherit;font-family:var(--f-display);font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 16px;border-radius:20px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:18px}
+.group{display:grid;gap:8px}
+.group h3{font-size:14px;color:var(--muted);font-weight:500}
+.bar{display:grid;grid-template-columns:minmax(150px,240px) 1fr 52px;gap:12px;align-items:center;font-size:14px}
+.track{position:relative;height:14px;background:var(--barbg);border-radius:3px;overflow:hidden}
+.fill{position:absolute;inset-block:0;inset-inline-start:0;border-radius:3px}
+.bar .val{text-align:end}
+.axis{display:grid;grid-template-columns:minmax(150px,240px) 1fr 52px;gap:12px;font-size:12px;color:var(--muted)}
+.axis .ticks{display:flex;justify-content:space-between}
+.note{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.bar.flagged .fill{background:repeating-linear-gradient(135deg,var(--red) 0 6px,transparent 6px 10px)!important;border:1px solid var(--red)}
+.themes{display:grid;gap:12px}
+.theme{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:8px}
+.theme-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.theme .track{height:10px}
+.theme .fill{background:var(--blue)}
+.quotes{display:flex;flex-wrap:wrap;gap:6px}
+.quotes span{font-size:13px;background:var(--chip);border-radius:6px;padding:2px 10px;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{padding:10px 14px;text-align:start;border-bottom:1px solid var(--line)}
+th{font-family:var(--f-display);font-weight:600;font-size:13px;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.pill{font-size:12px;border-radius:20px;padding:1px 10px;white-space:nowrap}
+.pill.bad{background:color-mix(in srgb,var(--red) 18%,transparent);color:var(--red)}
+.pill.warn{background:color-mix(in srgb,var(--gold) 25%,transparent);color:var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;min-width:0}
+.card ul,.card ol{margin:0;padding-inline-start:20px;display:grid;gap:6px}
+@media (max-width:560px){.bar,.axis{grid-template-columns:1fr 44px}.bar .lbl{grid-column:1/-1}.axis>span:first-child{display:none}}
+@media (prefers-reduced-motion:no-preference){.fill{transition:width .5s ease}}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.langbtn{font:inherit;font-family:var(--f-display);font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 16px;border-radius:20px;cursor:pointer}
+.langbtn:hover{border-color:var(--blue)}
+.langbtn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+</style>
+
+<div class="wrap" id="wrap" dir="rtl">
+<header>
+  <div class="top"><div class="eyebrow" data-en="Skills Bank · Training evaluation surveys · 4 July – 28 September 2026">Skills Bank · استبيانات تقييم التدريب · 4 يوليو – 28 سبتمبر 2026</div><button class="langbtn" id="langbtn" type="button">English</button></div>
+  <h1 data-en="Trainee Satisfaction Analysis, Q3">تحليل رضا المتدربين للربع الثالث</h1>
+  <p class="muted" data-en="2,236 responses from three forms: in-person corporate training, public programs, and online training. Scale is 1 to 5.">2,236 استجابة من ثلاثة نماذج: التدريب الحضوري للشركات، البرامج العامة، والتدريب الأونلاين. المقياس من 1 إلى 5.</p>
+</header>
+
+<section>
+  <div class="tiles">
+    <div class="tile total">
+      <div class="muted" data-en="Overall">الإجمالي</div>
+      <div class="big num">4.72 <small>/ 5</small></div>
+      <div class="row"><span data-en="Responses">عدد الاستجابات</span><span class="num">2,236</span></div>
+      <div class="row"><span data-en="Rated 4 or 5">تقييم 4 أو 5</span><span class="num">94.7%</span></div>
+    </div>
+    <div class="tile">
+      <div class="muted" data-en="Corporate in-person">حضوري للشركات</div>
+      <div class="big num">4.79 <small>/ 5</small></div>
+      <div class="row"><span data-en="Responses">استجابات</span><span class="num">1,208</span></div>
+      <div class="row"><span data-en="Rated 4 or 5">تقييم 4 أو 5</span><span class="num">96.7%</span></div>
+      <div class="row"><span data-en="Gave 5 on every item">أعطوا 5 في كل البنود</span><span class="num">58%</span></div>
+    </div>
+    <div class="tile">
+      <div class="muted" data-en="Public programs">البرامج العامة (Public)</div>
+      <div class="big num">4.72 <small>/ 5</small></div>
+      <div class="row"><span data-en="Responses">استجابات</span><span class="num">370</span></div>
+      <div class="row"><span data-en="Rated 4 or 5">تقييم 4 أو 5</span><span class="num">93.9%</span></div>
+      <div class="row"><span data-en="Gave 5 on every item">أعطوا 5 في كل البنود</span><span class="num">39%</span></div>
+    </div>
+    <div class="tile">
+      <div class="muted" data-en="Online">أونلاين</div>
+      <div class="big num">4.66 <small>/ 5</small></div>
+      <span class="flag" data-en="4.58 before correcting the exercises item">4.58 قبل تصحيح بند التمارين</span>
+      <div class="row"><span data-en="Responses">استجابات</span><span class="num">658</span></div>
+      <div class="row"><span data-en="Rated 4 or 5">تقييم 4 أو 5</span><span class="num">91.4%</span></div>
+      <div class="row"><span data-en="Had a technical problem">واجهوا مشكلة تقنية</span><span class="num">8%</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 data-en="Key findings">أهم النتائج</h2>
+  <ul class="findings">
+    <li><span class="dot good"></span><p data-en="&lt;b&gt;The trainer is the strongest point in every channel.&lt;/b&gt; Trainer items (subject knowledge, friendliness, answering questions) score between 4.81 and 4.89, and over 98% rated them 4 or 5 in corporate in-person training."><b>المدرب هو أقوى نقطة في كل القنوات.</b> بنود المدرب (الإلمام بالموضوع، الود، الإجابة على الأسئلة) بين 4.81 و4.89، وأكثر من 98% أعطوها 4 أو 5 في الحضوري.</p></li>
+    <li><span class="dot warn"></span><p data-en="&lt;b&gt;Time is the weakest content item and the most common request in comments.&lt;/b&gt; &quot;Adequate time was provided&quot; is the lowest item in corporate (4.66) and public (4.65), and about a quarter of written comments ask for more days or fewer hours per day."><b>الوقت هو أضعف بند في المحتوى وأكثر طلب في التعليقات.</b> "الوقت كان كافياً" هو الأقل في الحضوري (4.66) والعام (4.65)، وحوالي ربع التعليقات المكتوبة تطلب أيام أكثر أو ساعات أقل في اليوم.</p></li>
+    <li><span class="dot warn"></span><p data-en="&lt;b&gt;Online scores clearly below in-person.&lt;/b&gt; Even after correction it is 4.66 against 4.79, and its weakest item is interaction with other participants (4.49). The most common request in the online form&#x27;s comments is to move to in-person training."><b>الأونلاين أقل من الحضوري بوضوح.</b> حتى بعد التصحيح (4.66 مقابل 4.79)، وأضعف بنوده التفاعل مع المشاركين الآخرين (4.49). وأغلب تعليقات نموذج الأونلاين تطلب التحويل لتدريب حضوري.</p></li>
+    <li><span class="dot bad"></span><p data-en="&lt;b&gt;In public programs the problem is the room and catering, not the training.&lt;/b&gt; Room temperature (4.39) and refreshments (4.42) are the two lowest items in the whole sheet. 11% of participants gave a 1 or 2 to a logistics item, against only 3% for content and trainer items."><b>في البرامج العامة، المشكلة في القاعة والضيافة وليست في التدريب.</b> حرارة القاعة (4.39) والضيافة (4.42) هما أقل بندين في الشيت كله. 11% من المشاركين أعطوا 1 أو 2 لبند لوجستي، مقابل 3% فقط لبنود المحتوى والمدرب.</p></li>
+    <li><span class="dot bad"></span><p data-en="&lt;b&gt;The exercises item in the online form is broken.&lt;/b&gt; None of the 658 answers is a 5. The question is set to a 1–4 scale by mistake, so its 3.77 average cannot be compared with the other items."><b>بند التمارين في نموذج الأونلاين معطوب.</b> مفيش ولا إجابة بـ 5 من 658؛ السؤال متضبط على مقياس 1–4 بالغلط، فمتوسطه 3.77 مش مقارن بباقي البنود.</p></li>
+  </ul>
+</section>
+
+<section>
+  <h2 data-en="Item-level scores">البنود بالتفصيل</h2>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel"></div>
+</section>
+
+<section>
+  <h2 data-en="What trainees asked for in their suggestions">ماذا طلب المتدربون في اقتراحاتهم؟</h2>
+  <p class="muted" data-en="606 written comments (very short replies excluded). Comments are grouped by keyword and one comment can fall under several themes, so the counts are approximate.">606 تعليق مكتوب (غير الردود القصيرة). التصنيف بالكلمات المفتاحية، والتعليق الواحد قد يدخل في أكثر من محور، فالأرقام تقريبية.</p>
+  <div class="themes" id="themes"></div>
+</section>
+
+<section>
+  <h2 data-en="Trainings that need review">تدريبات تحتاج مراجعة</h2>
+  <p class="muted" data-en="Lowest-scoring trainings among those with 8 or more responses. &quot;Dissatisfied&quot; means the share who gave a 1 or 2 on any item.">أقل التدريبات متوسطاً من بين التي لها 8 استجابات أو أكثر. "نسبة المعترضين" = من أعطى 1 أو 2 في أي بند.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th data-en="Code">الكود</th><th data-en="Form">النموذج</th><th data-en="Responses">الاستجابات</th><th data-en="Average">المتوسط</th><th data-en="Dissatisfied">نسبة المعترضين</th><th data-en="Weakest items">أضعف البنود</th></tr></thead>
+    <tbody>
+      <tr><td class="num">EG918</td><td data-en="Online">أونلاين</td><td class="num">11</td><td class="num">3.93</td><td><span class="pill bad">27%</span></td><td data-en="Exercises, online interaction directions">التمارين، تعليمات التفاعل أونلاين</td></tr>
+      <tr><td class="num">PU303</td><td data-en="Public">عام</td><td class="num">14</td><td class="num">4.07</td><td><span class="pill bad">36%</span></td><td data-en="Met expectations, handout, participation">تحقيق التوقعات، الهاند آوت، التفاعل</td></tr>
+      <tr><td class="num">EG928</td><td data-en="Online">أونلاين</td><td class="num">11</td><td class="num">4.08</td><td><span class="pill warn">18%</span></td><td>—</td></tr>
+      <tr><td class="num">EG845</td><td data-en="In-person">حضوري</td><td class="num">14</td><td class="num">4.13</td><td><span class="pill bad">36%</span></td><td data-en="Met expectations, content organisation, time">تحقيق التوقعات، تنظيم المحتوى، الوقت</td></tr>
+      <tr><td class="num">PU351</td><td data-en="Online">أونلاين</td><td class="num">10</td><td class="num">4.27</td><td><span class="pill bad">30%</span></td><td>—</td></tr>
+      <tr><td class="num">EG750</td><td data-en="Online">أونلاين</td><td class="num">20</td><td class="num">4.30</td><td><span class="pill warn">15%</span></td><td>—</td></tr>
+      <tr><td class="num">EG868</td><td data-en="In-person">حضوري</td><td class="num">8</td><td class="num">4.33</td><td><span class="pill bad">25%</span></td><td>—</td></tr>
+      <tr><td class="num">PU321</td><td data-en="Public">عام</td><td class="num">22</td><td class="num">4.43</td><td><span class="pill bad">36%</span></td><td data-en="Room temperature, space, refreshments">حرارة القاعة، المساحة، الضيافة</td></tr>
+      <tr><td class="num">EG778</td><td data-en="In-person">حضوري</td><td class="num">20</td><td class="num">4.50</td><td><span class="pill warn">5%</span></td><td data-en="Adequate time (3.95)">الوقت الكافي (3.95)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="font-size:13px" data-en="Highest rated: EG725, EG690 and EG832 (5.00), EG823 and EG771 (4.99), PU339 (4.95), EG852 online (4.88).">الأعلى تقييماً: EG725 وEG690 وEG832 (5.00)، EG823 وEG771 (4.99)، PU339 (4.95)، EG852 أونلاين (4.88).</p>
+</section>
+
+<section>
+  <h2 data-en="Problems in the data itself">مشاكل في البيانات نفسها</h2>
+  <div class="cols">
+    <div class="card">
+      <h3 data-en="Fix in the forms">تحتاج تصليح في النماذج</h3>
+      <ul>
+        <li data-en="The exercises item in the online form uses a 1–4 scale instead of 1–5.">بند التمارين في نموذج الأونلاين مقياسه 1–4 بدل 1–5.</li>
+        <li data-en="155 responses (7%) have a mistyped training code: spaces, people&#x27;s names, employee numbers, or the course name. Example: the &quot;ALEX BANK&quot; code is written seven different ways.">155 استجابة (7%) كود التدريب فيها مكتوب غلط: مسافات، أسماء أشخاص، أرقام موظفين، أو اسم الكورس. مثال: كود "ALEX BANK" مكتوب بسبعة أشكال مختلفة.</li>
+        <li data-en="Company name in public programs is free text: &quot;Banque Misr&quot; is written at least 6 ways (about 146 responses).">اسم الشركة في البرامج العامة حر: "بنك مصر" مكتوب بـ 6 أشكال على الأقل (حوالي 146 استجابة).</li>
+        <li data-en="The &quot;major changes you will decide&quot; question in the corporate sheet is completely empty, so it was either never added to the form or is not being recorded.">سؤال "التغييرات التي ستقررها" في شيت الحضوري فاضي بالكامل، يعني ما اتضافش للنموذج أو ما بيتسجلش.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 data-en="Missing for deeper analysis">ناقص للتحليل الأعمق</h3>
+      <ul>
+        <li data-en="There is no column for program name, trainer, or client. The code alone is not enough to compare trainers or topics.">مفيش عمود لاسم البرنامج أو المدرب أو العميل؛ الكود وحده لا يكفي لمقارنة المدربين أو الموضوعات.</li>
+        <li data-en="The third sheet is named &quot;Sheet2&quot; and would be clearer as Online.">اسم الشيت الثالث "Sheet2"، ويُفضل تسميته Online.</li>
+        <li data-en="One value of 0 in the corporate participation item is outside the scale and was excluded.">قيمة 0 واحدة في بند التفاعل بالحضوري (خارج المقياس) واستُبعدت من الحساب.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 data-en="Recommendations">توصيات</h2>
+  <div class="cols">
+    <div class="card">
+      <h3 data-en="Design">على مستوى التصميم</h3>
+      <ol>
+        <li data-en="Review the duration of the programs where time is requested most, or spread the same hours over more days with shorter days (a repeated request: 4 hours instead of 6).">مراجعة مدة البرامج الأكثر طلباً للوقت، أو توزيع نفس الساعات على أيام أكثر بساعات أقل (طلب متكرر: 4 ساعات بدل 6).</li>
+        <li data-en="Add more role-play and case studies drawn from the client&#x27;s own work, especially for banks and operations teams.">زيادة الرول بلاي ودراسات الحالة من بيئة عمل العميل نفسه، خصوصاً للبنوك والأوبريشن.</li>
+        <li data-en="Give trainees the material (PDF or printed) and record online sessions.">تسليم ماتريال للمتدرب (PDF أو مطبوع) وتسجيل الجلسات الأونلاين.</li>
+        <li data-en="Online: mandatory breakout activities and clear interaction directions in the first 10 minutes.">في الأونلاين: أنشطة Breakout إجبارية وتعليمات تفاعل واضحة في أول 10 دقائق.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3 data-en="Operations">على مستوى التشغيل</h3>
+      <ol>
+        <li data-en="Review the venue and catering for public programs (air conditioning and lunch first), and follow up on PU321 in particular.">مراجعة قاعة وضيافة البرامج العامة (التكييف والغداء أولاً)، ومتابعة PU321 تحديداً.</li>
+        <li data-en="Hold a review session with the trainers of EG845, PU303 and EG918.">جلسة مراجعة مع مدربي EG845 وPU303 وEG918.</li>
+        <li data-en="Tell client management at contracting that a training day is not a working day, and that online trainees should attend from a quiet place.">تنبيه الإدارات عند التعاقد أن يوم التدريب ليس يوم عمل، وأن المتدرب الأونلاين يحضر من مكان هادئ.</li>
+        <li data-en="Turn the training code into a dropdown, and add trainer name and client questions to the forms.">تحويل كود التدريب لقائمة منسدلة، وإضافة سؤال اسم المدرب والعميل للنماذج.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+</div>
+
+<script>
+let LANG='ar', CUR='corp';
+const G={c:["المحتوى والتنظيم","Content and organisation"],t:["المدرب","Trainer"],l:["القاعة والضيافة","Venue and catering"],o:["التجربة الأونلاين","Online experience"]};
+const L={
+ obj:["وضوح الأهداف من البداية","Objectives clear from the start"],exp:["التدريب حقق توقعاتك","Training met expectations"],org:["تنظيم المحتوى وتسلسله","Content organised and easy to follow"],
+ exr:["التمارين ساعدت على الفهم","Exercises helped understanding"],tim:["الوقت كان كافياً","Adequate time provided"],hnd:["وضوح وتنظيم الهاند آوت","Handout clear and organised"],
+ knw:["إلمام المدرب بالموضوع","Trainer's subject knowledge"],qua:["جودة الشرح ووضوحه","Quality and clarity of instruction"],frd:["ودّ المدرب وتعاونه","Friendly and helpful manner"],
+ ans:["الإجابة على الأسئلة","Satisfactory answers to questions"],par:["تشجيع المشاركة والتفاعل","Encouraged participation"],
+ tmp:["حرارة القاعة مناسبة","Room temperature"],eqp:["الأجهزة تعمل جيداً","Equipment worked properly"],spc:["المساحة كافية","Sufficient space"],fod:["الضيافة والغداء","Refreshments and lunch"],
+ exr4:["التمارين ساعدت على الفهم (مقياس 1–4)","Exercises helped understanding (1–4 scale)"],dlv:["توصيل المحتوى بفاعلية","Delivered content effectively"],qry:["الرد على الاستفسارات في وقتها","Answered queries on time"],
+ dir:["وضوح تعليمات التفاعل أونلاين","Clear directions for online interaction"],iin:["التفاعل مع المدرب","Interaction with the instructor"],iot:["التفاعل مع المشاركين الآخرين","Interaction with other participants"]};
+const DATA={
+ corp:{name:["حضوري للشركات","Corporate in-person"],items:[["c","obj",4.79],["c","exp",4.70],["c","org",4.74],["c","exr",4.75],["c","tim",4.66],["c","hnd",4.75],["t","knw",4.88],["t","qua",4.85],["t","frd",4.89],["t","ans",4.89],["t","par",4.84]]},
+ pub:{name:["البرامج العامة","Public programs"],items:[["c","obj",4.79],["c","exp",4.69],["c","org",4.77],["c","exr",4.72],["c","tim",4.65],["c","hnd",4.73],["t","knw",4.87],["t","qua",4.84],["t","frd",4.86],["t","ans",4.85],["t","par",4.86],["l","tmp",4.39],["l","eqp",4.66],["l","spc",4.62],["l","fod",4.42]]},
+ onl:{name:["أونلاين","Online"],items:[["c","obj",4.68],["c","exp",4.57],["c","org",4.64],["c","exr4",3.77,1],["t","knw",4.81],["t","dlv",4.76],["t","qry",4.79],["t","par",4.73],["o","dir",4.54],["o","iin",4.59],["o","iot",4.49]]}};
+const T={note:["المحور يبدأ من 3.5 لتوضيح الفروق. الأخضر 4.8 فأكثر، الأزرق 4.6–4.8، الذهبي أقل من 4.6.","The axis starts at 3.5 to make differences visible. Green is 4.8 and above, blue is 4.6–4.8, gold is below 4.6."],
+ flag:[" البند المخطط لا يُقارن بالباقي لأن أعلى اختيار فيه كان 4."," The striped item is not comparable with the rest because its highest option was 4."],
+ cm:["تعليق","comments"],title:["تحليل رضا المتدربين Q3 2026","Trainee Satisfaction Q3 2026"]};
+const i=()=>LANG==='en'?1:0;
+const MIN=3.5,MAX=5;
+const color=v=>v>=4.8?"var(--teal)":v>=4.6?"var(--blue)":"var(--gold)";
+function render(key){
+  CUR=key;const d=DATA[key];const p=document.getElementById('panel');
+  let h='<div class="axis"><span></span><div class="ticks num"><span>3.5</span><span>4.0</span><span>4.5</span><span>5.0</span></div><span></span></div>';
+  for(const g of Object.keys(G)){
+    const its=d.items.filter(x=>x[0]===g); if(!its.length) continue;
+    h+=`<div class="group"><h3>${G[g][i()]}</h3>`;
+    for(const [,k,v,f] of its){
+      const w=Math.max(0,(v-MIN)/(MAX-MIN)*100);
+      h+=`<div class="bar${f?' flagged':''}"><span class="lbl">${L[k][i()]}</span><div class="track"><div class="fill" style="width:${w}%;background:${color(v)}"></div></div><span class="val num">${v.toFixed(2)}</span></div>`;
+    }
+    h+='</div>';
+  }
+  h+='<p class="note">'+T.note[i()]+(key==='onl'?T.flag[i()]:'')+'</p>';
+  p.innerHTML=h;
+  document.querySelectorAll('#tabs button').forEach(b=>{b.textContent=DATA[b.dataset.k].name[i()];b.setAttribute('aria-selected',b.dataset.k===key)});
+}
+const tabs=document.getElementById('tabs');
+for(const k of Object.keys(DATA)){const b=document.createElement('button');b.id='tab-'+k;b.setAttribute('role','tab');b.dataset.k=k;b.onclick=()=>render(k);tabs.appendChild(b)}
+const TH=[
+ [["زيادة المدة أو توزيعها على أيام أكثر","Longer duration, or spread over more days"],143,["زيادة المدة يوم","4 ساعات في اليوم بدل 6","3 days instead of 2","More days less hours"]],
+ [["تطبيق عملي أكثر: رول بلاي، حالات، تمارين","More practice: role-play, cases, exercises"],81,["more role-play and real-life case studies","أمثلة حقيقية أكتر","التطبيق وعمل رول بلاي"]],
+ [["ماتريال مكتوب أو تسجيل للجلسات","Written material or session recordings"],47,["توفير المادة العلمية مطبوعة","Recording online sessions","ارسالها بملف PDF"]],
+ [["التدريب حضوري بدل الأونلاين","In-person instead of online"],40,["Physical training is better","التدريب في قاعة وليس أونلاين","نقل التدريب من zoom لحضور فعلي"]],
+ [["تكرار التدريب ودورات متابعة","Repeat training and follow-up courses"],37,["تتكرر كل 3 شهور","Round two","Need more courses in this field"]],
+ [["تخصيص المحتوى لمجال العمل ومستوى المتدربين","Tailor content to the job and trainee level"],31,["مناسبة لطريقة عمل الفروع في البنوك","Good training, wrong audience","The audience should be on same level"]],
+ [["القاعة والتجهيزات والمكان","Venue, equipment and location"],16,["Fix the air conditioner","البروجيكتور يفصل كل 10 دقائق","خارج إطار الشركة لزيادة التركيز"]],
+ [["توقيت الجلسات وضغط العمل","Session timing and workload"],9,["To consider the timings of the employees shifts","الكورس مش يوم عمل","Less hours and start at early morning"]]];
+function renderThemes(){
+  const tmax=TH[0][1];
+  document.getElementById('themes').innerHTML=TH.map(([t,n,q])=>`<div class="theme"><div class="theme-head"><h3>${t[i()]}</h3><span class="num muted">${n} ${T.cm[i()]}</span></div><div class="track"><div class="fill" style="width:${n/tmax*100}%"></div></div><div class="quotes">${q.map(x=>`<span dir="auto">${x}</span>`).join('')}</div></div>`).join('');
+}
+function setLang(l){
+  LANG=l;const en=l==='en';
+  const w=document.getElementById('wrap');w.dir=en?'ltr':'rtl';w.lang=l;document.body.style.direction=en?'ltr':'rtl';
+  document.querySelectorAll('[data-en]').forEach(e=>{if(e.dataset.ar===undefined)e.dataset.ar=e.innerHTML;e.innerHTML=en?e.dataset.en:e.dataset.ar});
+  document.getElementById('langbtn').textContent=en?'العربية':'English';
+  document.title=T.title[i()];
+  render(CUR);renderThemes();
+  try{localStorage.setItem('survey-lang',l)}catch(e){}
+}
+document.getElementById('langbtn').onclick=()=>setLang(LANG==='ar'?'en':'ar');
+let saved='ar';try{saved=localStorage.getItem('survey-lang')||'ar'}catch(e){}
+setLang(saved==='en'?'en':'ar');
+
+</script>
+
+</body>
+</html>
